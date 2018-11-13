@@ -1,0 +1,812 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="iOS开发,Objective-C," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="网络请求框架前言 在现在的开发过程中，我们做APP发起网络请求，都离不开一个非常有用的框架AFNetworking，可以说这个框架的知名度已经超过了苹果的底层网络请求部分，很多人可能不知道苹果底层是如何发起网络请求的，但是一定知道AFNetworking。但是开发一个对程序员友好的项目，我们需要在中间加上一层兼容的网络框架，也许这个并不是最好的网络框架，但是这个是最适合我们的APP。我们在这个网络">
+<meta name="keywords" content="iOS开发,Objective-C">
+<meta property="og:type" content="article">
+<meta property="og:title" content="网络请求框架">
+<meta property="og:url" content="http://lizechuang.github.io/2018/11/13/网络请求框架/index.html">
+<meta property="og:site_name" content="李先生的随笔">
+<meta property="og:description" content="网络请求框架前言 在现在的开发过程中，我们做APP发起网络请求，都离不开一个非常有用的框架AFNetworking，可以说这个框架的知名度已经超过了苹果的底层网络请求部分，很多人可能不知道苹果底层是如何发起网络请求的，但是一定知道AFNetworking。但是开发一个对程序员友好的项目，我们需要在中间加上一层兼容的网络框架，也许这个并不是最好的网络框架，但是这个是最适合我们的APP。我们在这个网络">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://github.com/lizechuang/photoURL/blob/master/photo/%E7%BD%91%E7%BB%9C%E8%AF%B7%E6%B1%82%E6%A1%86%E6%9E%B6%E7%BB%93%E6%9E%84%E5%9B%BE.png">
+<meta property="og:updated_time" content="2018-11-13T15:22:10.702Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="网络请求框架">
+<meta name="twitter:description" content="网络请求框架前言 在现在的开发过程中，我们做APP发起网络请求，都离不开一个非常有用的框架AFNetworking，可以说这个框架的知名度已经超过了苹果的底层网络请求部分，很多人可能不知道苹果底层是如何发起网络请求的，但是一定知道AFNetworking。但是开发一个对程序员友好的项目，我们需要在中间加上一层兼容的网络框架，也许这个并不是最好的网络框架，但是这个是最适合我们的APP。我们在这个网络">
+<meta name="twitter:image" content="https://github.com/lizechuang/photoURL/blob/master/photo/%E7%BD%91%E7%BB%9C%E8%AF%B7%E6%B1%82%E6%A1%86%E6%9E%B6%E7%BB%93%E6%9E%84%E5%9B%BE.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://lizechuang.github.io/2018/11/13/网络请求框架/"/>
+
+
+
+
+
+  <title>网络请求框架 | 李先生的随笔</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">李先生的随笔</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">如人饮水，冷暖自知</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://lizechuang.github.io/2018/11/13/网络请求框架/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Lee">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="李先生的随笔">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">网络请求框架</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-11-13T23:21:22+08:00">
+                2018-11-13
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/开发/" itemprop="url" rel="index">
+                    <span itemprop="name">开发</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="网络请求框架"><a href="#网络请求框架" class="headerlink" title="网络请求框架"></a>网络请求框架</h1><h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><blockquote>
+<p>在现在的开发过程中，我们做APP发起网络请求，都离不开一个非常有用的框架AFNetworking，可以说这个框架的知名度已经超过了苹果的底层网络请求部分，很多人可能不知道苹果底层是如何发起网络请求的，但是一定知道AFNetworking。但是开发一个对程序员友好的项目，我们需要在中间加上一层兼容的网络框架，也许这个并不是最好的网络框架，但是这个是最适合我们的APP。我们在这个网络框架中添加一部分项目中的网络逻辑，与业务逻辑分离出来。</p>
+</blockquote>
+<blockquote>
+<p>在项目开发接近尾声，终于有时间整理一下开发过程中使用和收获，下面就讲一下用于当前开发项目的网络框架</p>
+</blockquote>
+<blockquote>
+<p>我们使用了一个其他人实现的一个库HLNetworking，并将其中部分逻辑修改，添加上适合当前app的逻辑，我以网络请求框架入手，讲一下HLNetworking基本结构</p>
+</blockquote>
+<a id="more"></a>
+<h2 id="网络请求框架结构图"><a href="#网络请求框架结构图" class="headerlink" title="网络请求框架结构图"></a>网络请求框架结构图</h2><p><img src="https://github.com/lizechuang/photoURL/blob/master/photo/%E7%BD%91%E7%BB%9C%E8%AF%B7%E6%B1%82%E6%A1%86%E6%9E%B6%E7%BB%93%E6%9E%84%E5%9B%BE.png" alt="image"></p>
+<h2 id="config"><a href="#config" class="headerlink" title="config"></a>config</h2><h3 id="HLNetworkConfig"><a href="#HLNetworkConfig" class="headerlink" title="HLNetworkConfig"></a>HLNetworkConfig</h3><p>作为全局network的配置</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">// 提示相关参数</span><br><span class="line">@property (nonatomic, strong) HLNetworkTipsConfig *tips;</span><br><span class="line"></span><br><span class="line">// 请求相关参数</span><br><span class="line">@property (nonatomic, strong) HLNetworkRequestConfig *request;</span><br><span class="line"></span><br><span class="line">// 网络策略相关参数</span><br><span class="line">@property (nonatomic, strong) HLNetworkPolicyConfig *policy;</span><br><span class="line"></span><br><span class="line">// 安全策略相关参数</span><br><span class="line">@property (nonatomic, strong) HLSecurityPolicyConfig *defaultSecurityPolicy;</span><br><span class="line"></span><br><span class="line">// 是否启用reachability，baseURL为domain</span><br><span class="line">@property (nonatomic, assign) BOOL enableReachability;</span><br><span class="line"></span><br><span class="line">// 是否开启网络debug日志，该选项会在控制台输出所有网络回调日志，并且在Release模式下无效</span><br><span class="line">@property (nonatomic, assign) BOOL enableGlobalLog;</span><br></pre></td></tr></table></figure>
+<h4 id="HLNetworkRequestConfig"><a href="#HLNetworkRequestConfig" class="headerlink" title="HLNetworkRequestConfig"></a>HLNetworkRequestConfig</h4><p>全局Request的配置(可以在实例的Request中单独设置)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">// 定义 Interceptor 全局拦截器</span><br><span class="line">// 用于调用 needRetryForError: forRequest:(HLURLRequest *)request 方法</span><br><span class="line">@property (nonatomic, strong, nullable) NSObject&lt;HLInterceptorProtocol&gt; *globalInterceptor;</span><br><span class="line">// API请求的自定义队列</span><br><span class="line">@property (nonatomic, strong, nullable) dispatch_queue_t callbackQueue;</span><br><span class="line"></span><br><span class="line">// 默认的parameters，可以在HLAPI中选择是否使用，默认开启</span><br><span class="line">@property (nonatomic, strong, nullable) NSDictionary&lt;NSString *, NSObject *&gt; *defaultParams;</span><br><span class="line"></span><br><span class="line">// 默认的header，可以在HLAPI中覆盖</span><br><span class="line">@property (nonatomic, strong, nullable) NSDictionary&lt;NSString *, NSString *&gt; *defaultHeaders;</span><br><span class="line"></span><br><span class="line">// 全局的baseURL，HLAPI的baseURL会覆盖该参数</span><br><span class="line">@property (nonatomic, copy, nullable) NSString *baseURL;</span><br><span class="line">// api版本，用于拼接在请求的Path上</span><br><span class="line">// 默认为infoPlist中的CFBundleShortVersionString，格式为v&#123;version&#125;&#123;r&#125;，审核版本为r</span><br><span class="line">@property (nonatomic, copy, nullable) NSString *apiVersion;</span><br><span class="line"></span><br><span class="line">// 是否为审核版本，作用于apiVersion，存储在NSUserDefaults中，key为isR</span><br><span class="line">@property (nonatomic, assign) BOOL isJudgeVersion;</span><br><span class="line"></span><br><span class="line">// UserAgent，request header中的UA，默认为nil</span><br><span class="line">@property (nonatomic, copy, nullable) NSString *userAgent;</span><br><span class="line"></span><br><span class="line">// 每个Host的最大连接数，默认为5</span><br><span class="line">@property (nonatomic, assign) NSUInteger maxHttpConnectionPerHost;</span><br><span class="line"></span><br><span class="line">// 网络状态不好时自动重试次数，默认为0</span><br><span class="line">@property (nonatomic, assign) NSUInteger retryCount;</span><br><span class="line"></span><br><span class="line">// 请求超时时间，默认为30秒</span><br><span class="line">@property (nonatomic, assign) NSTimeInterval requestTimeoutInterval;</span><br><span class="line"></span><br><span class="line">// 获取当前版本</span><br><span class="line">- (nonnull NSString *)getCurrentVersion;</span><br></pre></td></tr></table></figure>
+<h2 id="Request"><a href="#Request" class="headerlink" title="Request"></a>Request</h2><ul>
+<li>发起请求</li>
+<li>可以在其中设置Request的的配置（不设置的话默认为HLNetworkManager持有的HLNetworkConfig中的配置）ps：优先级最高</li>
+<li>设置回调</li>
+</ul>
+<p>HLURLRequest为基类，HLAPIRequest，HLTaskRequest为子类，开发时更多使用这两个子类，分别用于发送网络请求，和上传下载数据</p>
+<p>每一个Request都会持有自己的dispatch_queue_t操作队列</p>
+<p>HLRequestGroup是请求组，是上述描述队列的集合，Manager利用信号量做同步请求，使用group做完成通知(有两个枚举去声明是并发还是串行)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">- (void)sendGroup:(HLRequestGroup *)group &#123;</span><br><span class="line">    if (!group) return;</span><br><span class="line">    dispatch_queue_t queue;</span><br><span class="line">    // 根据groupMode 配置信号量</span><br><span class="line">    dispatch_semaphore_t semaphore = nil;</span><br><span class="line">    if (group.groupMode == HLRequestGroupModeChain) &#123;</span><br><span class="line">        semaphore = dispatch_semaphore_create(group.maxRequestCount);</span><br><span class="line">    &#125;</span><br><span class="line">    dispatch_group_t api_group = dispatch_group_create();</span><br><span class="line">    @hl_weakify(self);</span><br><span class="line">    dispatch_async(queue, ^&#123;</span><br><span class="line">        [group enumerateObjectsUsingBlock:^(HLURLRequest * _Nonnull request, NSUInteger idx, BOOL * _Nonnull stop) &#123;</span><br><span class="line">            @hl_strongify(self);</span><br><span class="line">            request.queue = queue;</span><br><span class="line">            if (group.groupMode == HLRequestGroupModeChain) &#123;</span><br><span class="line">                dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);</span><br><span class="line">            &#125;</span><br><span class="line">            dispatch_group_enter(api_group);</span><br><span class="line">            [self send:request atSemaphore:semaphore atGroup:api_group];</span><br><span class="line">        &#125;];</span><br><span class="line">        //利用其去做完成通知</span><br><span class="line">        dispatch_group_notify(api_group, dispatch_get_main_queue(), ^&#123;</span><br><span class="line">            if (group.delegate) &#123;</span><br><span class="line">                [group.delegate requestGroupAllDidFinished:group];</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>(具体就不一一描述)</p>
+<h2 id="HLNetworkManager（单例）"><a href="#HLNetworkManager（单例）" class="headerlink" title="HLNetworkManager（单例）"></a>HLNetworkManager（单例）</h2><ul>
+<li>作为发送请求的HLNetworkEngine 和 Request的枢纽</li>
+<li>并注册HLNetworkTaskManager（网络请求监听者）作为重复API使用，相同API调用的处理</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">重复API指一个API对象发送了两次请求</span><br><span class="line">相同API指实例了两个相同API对象发送请求</span><br></pre></td></tr></table></figure>
+<ul>
+<li>持有一个HLNetworkRequestConfig作为全局的网络配置</li>
+<li>处理Request的配置，将业务层添加的参数转换传入HLNetworkEngine，进行AFNetworking网络请求</li>
+<li>处理业务层的Block，判断请求数据完成，error数据，进行判断操作。假如error数据存在，判断拦截操作（进行是否需要重新发送请求的操作判断，重点讲放在后面讲）；或者网络异常，判断是否重新发送；或者其他错误，进行error数据的处理返回。假如无error数据，判断当前Requset是否实现了处理原始数据的方法，自动处理原始数据，并将其设置为Requset的参数。</li>
+</ul>
+<p>ps：并不在HLNetworkManager这里进行回调Block参数的调用，Block参数的调用放在自身和HLNetworkTaskManager中。可能大家会有疑问为什么还要放在HLNetworkTaskManager调用？要实现一个网络监听者HLNetworkTaskManager。原因在下面会有描述，关于重复发送相同的请求问题。就不在HLNetworkManager中赘述。</p>
+<h2 id="HLNetworkEngine（单例）"><a href="#HLNetworkEngine（单例）" class="headerlink" title="HLNetworkEngine（单例）"></a>HLNetworkEngine（单例）</h2><p>利用AFNetWorking进行网络请求，将HLNetworkManager传过来的Request和config等参数，组合成AFHTTPSessionManager的参数。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">@property (nonatomic, strong) NSMutableDictionary &lt;NSString *, __kindof AFURLSessionManager *&gt;*sessionManagerCache;</span><br></pre></td></tr></table></figure>
+<p>HLNetworkEngine会将使用的AFHTTPSessionManager保存起来，发送HLTaskRequest、HLAPIRequest，两个中不同BaseUrl的Manager，就不用每一个Request都要实例一个AFHTTPSessionManager。利用HLTaskRequest、HLAPIRequest的BaseURl作为保存的Key。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">@property (nonatomic, strong) NSMutableArray &lt;__kindof HLURLRequest *&gt; *sessionTasksList;</span><br></pre></td></tr></table></figure>
+<p>HLNetworkEngine会将使用的HLURLRequest保存起来，进行请求的暂停，取消操作</p>
+<p>但是在开发过程中可能会出现这些问题：</p>
+<p>如果在同一时间发送了两个重复的网络请求，这个时候如果按照原本的开发思路，应该是两个都发送请求，但是我们可能只需要使用其中的一个，如果两个都发送，可能会影响当前网络没有必要浪费网络资源在重复的请求上面，毕竟作为一个开发着要对自己严格一点，用户体验比较重要。</p>
+<p>又假如同一时间，不同的模块实例了相同的API请求数据，这个时候就像上面说的我们的做法是发送两次请求，但是想想我们只需要发送一次数据，然后在返回给那两个API就行啦。这样就解决问题了。</p>
+<p>所以我们在原有的网络基础上加了一个HLNetworkTaskManager对象，用于处理当前时间同时进行网络请求各个API之间关系的处理。</p>
+<h2 id="HLNetworkTaskManager"><a href="#HLNetworkTaskManager" class="headerlink" title="HLNetworkTaskManager"></a>HLNetworkTaskManager</h2><h3 id="Request的等同判定"><a href="#Request的等同判定" class="headerlink" title="Request的等同判定"></a>Request的等同判定</h3><p>先讲一下Request的等同判定，按照 == 操作符比较的是两个指针本身，而不是所指的对象。应该使用NSObject协议中的声明的“isEqual”方法来判断两个对象的等同性。一般来说两个类型不相同的对象总是不相等的（unequal）。一些对象提供了特殊的“等同性判断方法”。如NSString的“isEqualString”。调用改方法比调用“isEqual”方法快。</p>
+<p>所以我们在Request中定义了这个对象自己的“等同性判断方法”<br>利用Request自己的属性作为自身的hashKey</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">- (NSString *)hashKey &#123;</span><br><span class="line">    NSString *hashStr = nil;</span><br><span class="line">    if (self.customURL) &#123;</span><br><span class="line">        hashStr = [NSString stringWithFormat:@&quot;%@%@?%@?%lu&quot;,</span><br><span class="line">                   self.header,</span><br><span class="line">                   self.customURL,</span><br><span class="line">                   self.parameters,</span><br><span class="line">                   (unsigned long)self.requestMethodType];</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">        hashStr = [NSString stringWithFormat:@&quot;%@%@/%@?%@?%lu&quot;,</span><br><span class="line">                   self.header,</span><br><span class="line">                   self.baseURL,</span><br><span class="line">                   self.path,</span><br><span class="line">                   self.parameters,</span><br><span class="line">                   (unsigned long)self.requestMethodType];</span><br><span class="line">    &#125;</span><br><span class="line">    return hashStr;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>自己定义了“isEqualToRequest:”方法，并重写了“isEqual:”方法</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">- (BOOL)isEqualToRequest:(HLURLRequest *)request &#123;</span><br><span class="line">    return [self hash] == [request hash];</span><br><span class="line">&#125;</span><br><span class="line">- (BOOL)isEqual:(id)object &#123;</span><br><span class="line">    if (self == object) return YES;</span><br><span class="line">    if (![object isKindOfClass:[HLURLRequest class]]) return NO;</span><br><span class="line">    return [self isEqualToRequest:(HLURLRequest *) object];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="处理当前时间同时进行网络请求各个API之间关系"><a href="#处理当前时间同时进行网络请求各个API之间关系" class="headerlink" title="处理当前时间同时进行网络请求各个API之间关系"></a>处理当前时间同时进行网络请求各个API之间关系</h3><p>回到之前说的话题处理当前时间同时进行网络请求各个API之间关系，HLNetworkEngine持有一个HLNetworkTaskManager对象（在该对象的init方法中，已经注册到HLNetworkManager中，进行网络监听）</p>
+<p>在这个方法中</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">- (void)sendRequest:(__kindof HLURLRequest *)requestObject</span><br><span class="line">          andConfig:(HLNetworkConfig *)config</span><br><span class="line">       progressBack:(HLProgressBlock)progressCallBack</span><br><span class="line">           callBack:(HLCallbackBlock)callBack</span><br></pre></td></tr></table></figure>
+<p>每一次HLNetworkManager将一个HLURLRequest对象添加到HLNetworkEngine中进行网络请求都会调用这个方法,将Request添加到持有的HLNetworkTaskManager对象中</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">BOOL isExist = [self.taskManager addRequest:requestObject];</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">- (BOOL)addRequest:(HLURLRequest *)request&#123;</span><br><span class="line">    if(![self.requestList containsObject:request])&#123;</span><br><span class="line">        [self.requestList addObject:request];</span><br><span class="line">    &#125;</span><br><span class="line">    NSString *key = [request hashKey];</span><br><span class="line">    BOOL result = [self.requestRecord valueForKey:key];</span><br><span class="line">    if(result)&#123;</span><br><span class="line">        NSMutableArray *list = [NSMutableArray arrayWithArray:self.requestRecord[key]];</span><br><span class="line">        if(![list containsObject:request])&#123;</span><br><span class="line">            [list addObject:request];</span><br><span class="line">            self.requestRecord[key] = [list copy];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;else&#123;</span><br><span class="line">        [self.requestRecord setObject:@[request] forKey:key];</span><br><span class="line">    &#125;</span><br><span class="line">    if(result &amp;&amp; request.retryCount &lt; [HLNetworkManager sharedManager].config.request.retryCount)&#123;</span><br><span class="line">        // request 可能是重试的请求</span><br><span class="line">        // 同时处理其他几个请求</span><br><span class="line">        for(HLURLRequest *req in self.requestRecord[key])&#123;</span><br><span class="line">            if(req == request)&#123;</span><br><span class="line">                continue;</span><br><span class="line">            &#125;</span><br><span class="line">            else if(request.retryCount &lt; req.retryCount)&#123;</span><br><span class="line">                req.retryCount--;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        // 设置为 NO，让请求再发一次</span><br><span class="line">        result = NO;</span><br><span class="line">    &#125;</span><br><span class="line">    return result;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>进行判断是重复请求还是相同请求，以求最大的节约网络资源。</p>
+<p>当HLNetworkEngine请求完成后会将调用callBack(api, resultObject, error)方法块，方法块实现在HLNetworkManager中，之前就说过HLNetworkManager会提前处理好block中的方法，进行处理返回的参数，调用以下代码进行Request回调</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">// 处理回调的delegate</span><br><span class="line">    for (id&lt;HLNetworkResponseDelegate&gt; observer in self.responseObservers) &#123;</span><br><span class="line">        if ([[observer observerRequests] containsObject:request]) &#123;</span><br><span class="line">            if (netError) &#123;</span><br><span class="line">                if ([observer respondsToSelector:@selector(requestFailure:atRequest:)]) &#123;</span><br><span class="line">                    dispatch_async_main(self.config.request.callbackQueue, ^&#123;</span><br><span class="line">                        [observer requestFailure:netError atRequest:request];</span><br><span class="line">                    &#125;);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125; else &#123;</span><br><span class="line">                if ([observer respondsToSelector:@selector(requestSucess:atRequest:)]) &#123;</span><br><span class="line">                    dispatch_async_main(self.config.request.callbackQueue, ^&#123;</span><br><span class="line">                        [observer requestSucess:resultObject atRequest:request];</span><br><span class="line">                    &#125;);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<p>而在HLNetworkTaskManager的处理回调方法中，会将之前存在于自身，所处理的相同Request进行判断遍历回调。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">@property (nonatomic, strong) NSMutableDictionary *requestRecord;</span><br><span class="line">@property (nonatomic, strong) NSMutableArray *requestList;</span><br></pre></td></tr></table></figure>
+<p>这个是相同Request的successBlock的回调处理</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">- (void)requestSucess:(nullable id)responseObject atRequest:(nullable __kindof HLURLRequest *)request&#123;</span><br><span class="line">    NSString *key = [request hashKey];</span><br><span class="line">    if([self.requestRecord.allKeys containsObject:key])&#123;</span><br><span class="line">        for(HLURLRequest *requestObj in self.requestRecord[key])&#123;</span><br><span class="line">            if([request isEqual:requestObj])&#123;</span><br><span class="line">                continue;</span><br><span class="line">            &#125;</span><br><span class="line">            // APIRequest</span><br><span class="line">            if([requestObj isKindOfClass:HLAPIRequest.class])&#123;</span><br><span class="line">                HLAPIRequest *apiRequest = (HLAPIRequest *)requestObj;</span><br><span class="line">                if([apiRequest.objReformerDelegate respondsToSelector:@selector(modelingFormJSONResponseObject:)])&#123;</span><br><span class="line">                    [apiRequest.objReformerDelegate modelingFormJSONResponseObject:apiRequest.rawResponseObj];</span><br><span class="line">                &#125;</span><br><span class="line">                if([apiRequest.objReformerDelegate respondsToSelector:@selector(reformerObject:andError:atRequest:)])&#123;</span><br><span class="line">                    [apiRequest.objReformerDelegate reformerObject:apiRequest.rawResponseObj andError:nil atRequest:apiRequest];</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            // Task Request</span><br><span class="line">            if([requestObj isKindOfClass:HLTaskRequest.class])&#123;</span><br><span class="line">                // TODO</span><br><span class="line">            &#125;</span><br><span class="line">            if(requestObj.successHandler)&#123;</span><br><span class="line">                requestObj.successHandler(requestObj, responseObject);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        [self removeForKey:key];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="Interceptor"><a href="#Interceptor" class="headerlink" title="Interceptor"></a>Interceptor</h2><p>还有一个比较重要的协议HLInterceptorProtocol，出现错误的时候，用于拦截是否要执行这次 Retry。</p>
+<p>每个Request默认的Retry是3次，retry是需要的，毕竟可能会出现各种各样的问题。</p>
+<p>但是有一些情况是不需要重新请求的，当前app认为response header status == 200 以及body是null的时候属于请求成功，只是没有数据而已。 但是可能由于调用后台接口时参数可能会有错误，在一些错误参数时，可能会放回400-500的status码，特别是在搜索模块，因为后台没有先提供检索list接口，去判读这个character可以去获取那些数据。所以在搜索的时候是当前Character调用所有检索接口，所以可能会出现参数错误，或者是返回值不为json字段，和response header的serializer不同，出现错误。这种错误是不需要重新发送请求的，所以我们可以在全局的Config和局部Request<br>设置一个遵循HLInterceptorProtocol的拦截器去判断是否要重新发送请求。</p>
+<p>值得一提的是，设置完这个拦截器后，搜索速度贼快，有时候从需要15s，降到需要1点几s，确实很有必要去实现这个拦截器。</p>
+<p>协议内容</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">@protocol HLInterceptorProtocol &lt;NSObject&gt;</span><br><span class="line"></span><br><span class="line">@optional</span><br><span class="line">// 出现错误的时候，用于拦截是否要执行这次 Retry</span><br><span class="line">- (BOOL)needRetryForError:(NSError *)error forRequest:(HLURLRequest *)request;</span><br><span class="line"></span><br><span class="line">//进行错误判断</span><br><span class="line">- (NSError * _Nullable )interceptErrorForApiRequest:(HLAPIRequest *)request</span><br><span class="line">                                           curError:(NSError * _Nullable)curError;</span><br></pre></td></tr></table></figure>
+<p>在HLNetworkManager中的判断</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"> BOOL needRetry = YES;</span><br><span class="line">if(self.config.request.globalInterceptor &amp;&amp; [self.config.request.globalInterceptor respondsToSelector:@selector(needRetryForError:forRequest:)])&#123;</span><br><span class="line">            needRetry = [self.config.request.globalInterceptor needRetryForError:netError forRequest:request];</span><br><span class="line">&#125;</span><br><span class="line">if([request.interceptor respondsToSelector:@selector(needRetryForError:forRequest:)])&#123;</span><br><span class="line">            needRetry = [request.interceptor needRetryForError:netError forRequest:request];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>全局拦截器对象,在HLNetworkManager单例中的config中设置</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">@implementation SYGlobalInterceptor</span><br><span class="line">- (BOOL)needRetryForError:(NSError *)error forRequest:(HLURLRequest *)request&#123;</span><br><span class="line">    return request.statusCode &gt;= 500;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>默认statusCode小于500都不重试</p>
+<p>局部拦截器对象，在各自的Request对象中设置，优先级最高</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">@implementation SYErrorInterceptor</span><br><span class="line">+ (instancetype)interceptorForErrorKey:(NSString *)errorKey&#123;</span><br><span class="line">    SYErrorInterceptor *shared =  [[SYErrorInterceptor alloc]init];;</span><br><span class="line">    shared.needRetry = YES;</span><br><span class="line">    shared.errorKey = errorKey;</span><br><span class="line">    return shared;</span><br><span class="line">&#125;</span><br><span class="line">// 对于 response 格式符合的请求</span><br><span class="line">// 可以使用本拦截器，置为 failure</span><br><span class="line">- (NSError * _Nullable )interceptErrorForApiRequest:(HLAPIRequest *)request curError:(NSError * _Nullable)curError&#123;</span><br><span class="line">    if(!self.errorKey)&#123;</span><br><span class="line">        return nil;</span><br><span class="line">    &#125;</span><br><span class="line">    HLAPIRequest *api = (HLAPIRequest *)request;</span><br><span class="line">    NSError *error = nil;</span><br><span class="line">    if([api.rawResponseObj isKindOfClass:NSDictionary.class] &amp;&amp; [api.rawResponseObj valueForKey:self.errorKey])&#123;</span><br><span class="line">        error = [NSError errorWithDomain:self.errorKey code:404 userInfo:nil];</span><br><span class="line">        _needRetry = NO;</span><br><span class="line">    &#125;</span><br><span class="line">    return error;</span><br><span class="line">&#125;</span><br><span class="line">- (BOOL)needRetryForError:(NSError *)error forRequest:(HLURLRequest *)request&#123;</span><br><span class="line">    return _needRetry;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>很明显，在开发过程中业务层和AFNetworking层需要加上一层网络框架去处理Request和数据，这个网络框架并不是都相同的，但是都是最适合我们的项目，决定于我们的后台和我们的对接方式。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/iOS开发/" rel="tag"># iOS开发</a>
+          
+            <a href="/tags/Objective-C/" rel="tag"># Objective-C</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/05/22/iOS之ReactiveCocoa简介-使用和源码阅读/" rel="next" title="iOS之ReactiveCocoa简介,使用和源码阅读">
+                <i class="fa fa-chevron-left"></i> iOS之ReactiveCocoa简介,使用和源码阅读
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Lee</p>
+              <p class="site-description motion-element" itemprop="description">ios开发</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#网络请求框架"><span class="nav-number">1.</span> <span class="nav-text">网络请求框架</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#前言"><span class="nav-number">1.1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#网络请求框架结构图"><span class="nav-number">1.2.</span> <span class="nav-text">网络请求框架结构图</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#config"><span class="nav-number">1.3.</span> <span class="nav-text">config</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#HLNetworkConfig"><span class="nav-number">1.3.1.</span> <span class="nav-text">HLNetworkConfig</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#HLNetworkRequestConfig"><span class="nav-number">1.3.1.1.</span> <span class="nav-text">HLNetworkRequestConfig</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Request"><span class="nav-number">1.4.</span> <span class="nav-text">Request</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#HLNetworkManager（单例）"><span class="nav-number">1.5.</span> <span class="nav-text">HLNetworkManager（单例）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#HLNetworkEngine（单例）"><span class="nav-number">1.6.</span> <span class="nav-text">HLNetworkEngine（单例）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#HLNetworkTaskManager"><span class="nav-number">1.7.</span> <span class="nav-text">HLNetworkTaskManager</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Request的等同判定"><span class="nav-number">1.7.1.</span> <span class="nav-text">Request的等同判定</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#处理当前时间同时进行网络请求各个API之间关系"><span class="nav-number">1.7.2.</span> <span class="nav-text">处理当前时间同时进行网络请求各个API之间关系</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Interceptor"><span class="nav-number">1.8.</span> <span class="nav-text">Interceptor</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结"><span class="nav-number">1.9.</span> <span class="nav-text">总结</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Lee</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

@@ -91,7 +91,7 @@
 <meta property="og:image" content="https://github.com/lizechuang/photoURL/blob/master/photo/reativecocoa-filter.png?raw=true">
 <meta property="og:image" content="https://github.com/lizechuang/photoURL/blob/master/photo/reativecocoa-map.png?raw=true">
 <meta property="og:image" content="https://github.com/lizechuang/photoURL/blob/master/photo/reativecocoa-login.png?raw=true">
-<meta property="og:updated_time" content="2018-05-22T13:47:52.032Z">
+<meta property="og:updated_time" content="2018-05-22T13:53:15.418Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="iOS之ReactiveCocoa简介,使用和源码阅读">
 <meta name="twitter:description" content="iOS之ReactiveCocoa简介和使用1. ReactiveCocoa 简介ReactiveCocoa,简称RAC，是有Github开源的一个应用于iOS和OS开发的新框架">
@@ -517,9 +517,9 @@
 <p>关于reativecocoa的宏还有很多，就不一一论述</p>
 <h2 id="7-0-开发实际用法-操作用法"><a href="#7-0-开发实际用法-操作用法" class="headerlink" title="7.0 开发实际用法(操作用法)"></a>7.0 开发实际用法(操作用法)</h2><p>最后讲讲，开发中如何去使用这个库，上面的用法，都是利用简单的利用ReativeCocoa去实现一些业务逻辑</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">创建一个TextField名为usernameTextField 设置监听TextField</span><br><span class="line">[self.usernameTextField.rac_textSignal </span><br><span class="line">subscribeNext:^(id x)&#123;</span><br><span class="line">NSLog(@&quot;%@&quot;, x);</span><br><span class="line">&#125;];</span><br><span class="line">filter：如果想添加一个条件 只输出x的长度大于3的，可以使用filter操作来实现这个目的</span><br><span class="line">[self.usernameTextField.rac_textSignal</span><br><span class="line">filter:^BOOL(NSString* text)&#123;</span><br><span class="line">return text.length &gt; 3;</span><br><span class="line">&#125;];</span><br></pre></td></tr></table></figure>
-<p><img src="https://github.com/lizechuang/photoURL/blob/master/photo/reativecocoa-filter.png?raw=true" alt="image"></p>
+<p> <img src="https://github.com/lizechuang/photoURL/blob/master/photo/reativecocoa-filter.png?raw=true" alt="image"></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">map：把text转换成length进行输出，使用map可以对信号进行转换，一个源信号转换成另外一个新的信号输出</span><br><span class="line">[[[self.usernameTextField.rac_textSignal</span><br><span class="line">map:^id(NSString*text)&#123;</span><br><span class="line">return @(text.length);</span><br><span class="line">&#125;]</span><br><span class="line">filter:^BOOL(NSNumber*length)&#123;</span><br><span class="line">return[length integerValue] &gt; 3;</span><br><span class="line">&#125;]</span><br><span class="line">subscribeNext:^(id x)&#123;</span><br><span class="line">NSLog(@&quot;%@&quot;, x);</span><br><span class="line">&#125;];</span><br></pre></td></tr></table></figure>
-<p><img src="https://github.com/lizechuang/photoURL/blob/master/photo/reativecocoa-map.png?raw=true" alt="image"></p>
+<p> <img src="https://github.com/lizechuang/photoURL/blob/master/photo/reativecocoa-map.png?raw=true" alt="image"></p>
 <h3 id="7-1-登陆功能举例说明"><a href="#7-1-登陆功能举例说明" class="headerlink" title="7.1 登陆功能举例说明"></a>7.1 登陆功能举例说明</h3><p>需要实现登陆功能需要点击登陆button<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">- (RACSignal *)signInSignal &#123;</span><br><span class="line">return [RACSignal createSignal:^RACDisposable *(id subscriber)&#123;</span><br><span class="line">[self.signInService </span><br><span class="line">signInWithUsername:self.usernameTextField.text</span><br><span class="line">password:self.passwordTextField.text</span><br><span class="line">complete:^(BOOL success)&#123;</span><br><span class="line">[subscriber sendNext:@(success)];</span><br><span class="line">[subscriber sendCompleted];</span><br><span class="line">&#125;];</span><br><span class="line">return nil;</span><br><span class="line">&#125;];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">[[[[self.signInButton</span><br><span class="line">rac_signalForControlEvents:UIControlEventTouchUpInside]</span><br><span class="line">doNext:^(id x)&#123;</span><br><span class="line">self.signInButton.enabled =NO;</span><br><span class="line">self.signInFailureText.hidden =YES;</span><br><span class="line">&#125;]</span><br><span class="line"></span><br><span class="line">flattenMap:^id(id x)&#123;        </span><br><span class="line">return[self signInSignal];</span><br><span class="line">&#125;]</span><br><span class="line"></span><br><span class="line">subscribeNext:^(NSNumber*signedIn)&#123;</span><br><span class="line">self.signInButton.enabled =YES;</span><br><span class="line">BOOL success =[signedIn boolValue];</span><br><span class="line">self.signInFailureText.hidden = success;</span><br><span class="line">if(success)&#123;</span><br><span class="line">[self performSegueWithIdentifier:@&quot;signInSuccess&quot; sender:self];</span><br><span class="line">&#125;</span><br><span class="line">&#125;];</span><br></pre></td></tr></table></figure>
 <blockquote>
@@ -528,7 +528,7 @@
 <blockquote>
 <p>doNext：为一个附加操作，在一个next事件发生时执行的逻辑，而该逻辑并不改变事件本身。</p>
 </blockquote>
-<p><img src="https://github.com/lizechuang/photoURL/blob/master/photo/reativecocoa-login.png?raw=true" alt="image"></p>
+<p> <img src="https://github.com/lizechuang/photoURL/blob/master/photo/reativecocoa-login.png?raw=true" alt="image"></p>
 <p>未完待续，还有一个高级操作的内容，ps（最近忙着项目没什么时间写）。。</p>
 
       
@@ -573,6 +573,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/11/13/网络请求框架/" rel="prev" title="网络请求框架">
+                网络请求框架 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -649,7 +653,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-count">5</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -671,7 +675,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-count">3</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
