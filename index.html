@@ -263,6 +263,157 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://lizechuang.github.io/2018/11/17/关于多个网络请求发送请求的设计/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Lee">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="李先生的随笔">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/11/17/关于多个网络请求发送请求的设计/" itemprop="url">关于多个网络请求发送请求的设计</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-11-17T00:42:22+08:00">
+                2018-11-17
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/开发/" itemprop="url" rel="index">
+                    <span itemprop="name">开发</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h1 id="关于多个网络请求发送请求的设计"><a href="#关于多个网络请求发送请求的设计" class="headerlink" title="关于多个网络请求发送请求的设计"></a>关于多个网络请求发送请求的设计</h1><p>前言</p>
+<blockquote>
+<p>我们在项目中经常会遇到并行发送多个网络请求或者串行发送多个网络请求的业务需求，这个时候我们要怎么去实现这个业务需求。</p>
+<p>例如并行发起请求A，请求B，请求C，需要等到A，B，C都返回了才进行回调。我们可以像发送单个请求一样，在A，B，C的回调里面加上一层傻逼判断其他两个请求是否发送成功，做到同时发送了这三个请求,但是你会不会觉得这样会很奇怪，需要在业务层加上一层判断，逻辑就不对了。</p>
+<p>又例如串行发起请求A，请求B，请求C，需要等到A(成功)-&gt;B(成功)-&gt;C(成功)才进行进行回调。我们可以利用Block嵌套A回调嵌套B，B回调嵌套C。好像是可以实现，但是不觉得代码会很奇怪吗，很多层嵌套，如果又有一个请求，又加入这个嵌套吗？这种做法十分肤浅。</p>
+</blockquote>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/11/17/关于多个网络请求发送请求的设计/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://lizechuang.github.io/2018/11/13/网络请求框架/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1034,7 +1185,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-count">6</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
