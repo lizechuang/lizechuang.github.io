@@ -263,6 +263,157 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://lizechuang.github.io/2018/11/17/基于plist注册的WebView跳转路由/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Lee">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="李先生的随笔">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/11/17/基于plist注册的WebView跳转路由/" itemprop="url">关于多个网络请求发送请求的设计</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-11-17T21:00:00+08:00">
+                2018-11-17
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/开发/" itemprop="url" rel="index">
+                    <span itemprop="name">开发</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h1 id="基于plist注册的WebView跳转路由"><a href="#基于plist注册的WebView跳转路由" class="headerlink" title="基于plist注册的WebView跳转路由"></a>基于plist注册的WebView跳转路由</h1><p>前言</p>
+<blockquote>
+<p>前阵子在写项目中有一个需求，显示一些Html界面，后台返回html数据由我们这边显示，我们是直接用WKWebview去显示这个界面，并把包在tableViewCell中去显示。html数据中有些标签是有点击跳转到显示标签具体数据页面的业务，（标签后面带有具体数据请求URL的absoluteString）</p>
+<p>这个时候可以有暴力的方法当点击的时候直接获取到URL的absoluteString数据然后直接用当前的navigationC去push到具体的页面VC去显示，这样确实Ojbk，但是在cell的回调方法中需要去解析这个absoluteString，然后再去判断要跳转到哪个页面。而且，假如我们当前的navigationC在第三个tab中，跳转的页面要去第二个tab，此时要怎么做，这个时候好像可以去获取tabbarVC再去调整，这个时候再回头去看当前VC的代理方法中，你会发现我怎么在这个代理方法中写了这么多判断，把tabbarVC和隔壁的navigationC耦合到我们这个VC，这种做法是不可取的。</p>
+<p>还有一个很傻逼的地方，如果我们在需要用到WKWebView点击标签跳转的地方都要加上这些判断，很浪费时间，倒不如把这些跳转整合到一个路由中，将当前的absoluteString输入进去，怎么去跳转由路由去决定。</p>
+</blockquote>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/11/17/基于plist注册的WebView跳转路由/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://lizechuang.github.io/2018/11/17/关于多个网络请求发送请求的设计/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1185,7 +1336,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-count">7</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
