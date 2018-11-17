@@ -87,12 +87,12 @@
 <meta property="og:site_name" content="李先生的随笔">
 <meta property="og:description" content="网络请求框架前言 在现在的开发过程中，我们做APP发起网络请求，都离不开一个非常有用的框架AFNetworking，可以说这个框架的知名度已经超过了苹果的底层网络请求部分，很多人可能不知道苹果底层是如何发起网络请求的，但是一定知道AFNetworking。但是开发一个对程序员友好的项目，我们需要在中间加上一层兼容的网络框架，也许这个并不是最好的网络框架，但是这个是最适合我们的APP。我们在这个网络">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="https://github.com/lizechuang/photoURL/blob/master/photo/%E7%BD%91%E7%BB%9C%E8%AF%B7%E6%B1%82%E6%A1%86%E6%9E%B6%E7%BB%93%E6%9E%84%E5%9B%BE.png">
-<meta property="og:updated_time" content="2018-11-13T15:22:10.702Z">
+<meta property="og:image" content="https://github.com/lizechuang/photoURL/blob/master/photo/%E7%BD%91%E7%BB%9C%E8%AF%B7%E6%B1%82%E6%A1%86%E6%9E%B6%E7%BB%93%E6%9E%84%E5%9B%BE.png?raw=true">
+<meta property="og:updated_time" content="2018-11-17T08:43:04.017Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="网络请求框架">
 <meta name="twitter:description" content="网络请求框架前言 在现在的开发过程中，我们做APP发起网络请求，都离不开一个非常有用的框架AFNetworking，可以说这个框架的知名度已经超过了苹果的底层网络请求部分，很多人可能不知道苹果底层是如何发起网络请求的，但是一定知道AFNetworking。但是开发一个对程序员友好的项目，我们需要在中间加上一层兼容的网络框架，也许这个并不是最好的网络框架，但是这个是最适合我们的APP。我们在这个网络">
-<meta name="twitter:image" content="https://github.com/lizechuang/photoURL/blob/master/photo/%E7%BD%91%E7%BB%9C%E8%AF%B7%E6%B1%82%E6%A1%86%E6%9E%B6%E7%BB%93%E6%9E%84%E5%9B%BE.png">
+<meta name="twitter:image" content="https://github.com/lizechuang/photoURL/blob/master/photo/%E7%BD%91%E7%BB%9C%E8%AF%B7%E6%B1%82%E6%A1%86%E6%9E%B6%E7%BB%93%E6%9E%84%E5%9B%BE.png?raw=true">
 
 
 
@@ -364,7 +364,7 @@
 <p>我们使用了一个其他人实现的一个库HLNetworking，并将其中部分逻辑修改，添加上适合当前app的逻辑，我以网络请求框架入手，讲一下HLNetworking基本结构</p>
 </blockquote>
 <a id="more"></a>
-<h2 id="网络请求框架结构图"><a href="#网络请求框架结构图" class="headerlink" title="网络请求框架结构图"></a>网络请求框架结构图</h2><p><img src="https://github.com/lizechuang/photoURL/blob/master/photo/%E7%BD%91%E7%BB%9C%E8%AF%B7%E6%B1%82%E6%A1%86%E6%9E%B6%E7%BB%93%E6%9E%84%E5%9B%BE.png" alt="image"></p>
+<h2 id="网络请求框架结构图"><a href="#网络请求框架结构图" class="headerlink" title="网络请求框架结构图"></a>网络请求框架结构图</h2><p><img src="https://github.com/lizechuang/photoURL/blob/master/photo/%E7%BD%91%E7%BB%9C%E8%AF%B7%E6%B1%82%E6%A1%86%E6%9E%B6%E7%BB%93%E6%9E%84%E5%9B%BE.png?raw=true" alt="image"></p>
 <h2 id="config"><a href="#config" class="headerlink" title="config"></a>config</h2><h3 id="HLNetworkConfig"><a href="#HLNetworkConfig" class="headerlink" title="HLNetworkConfig"></a>HLNetworkConfig</h3><p>作为全局network的配置</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">// 提示相关参数</span><br><span class="line">@property (nonatomic, strong) HLNetworkTipsConfig *tips;</span><br><span class="line"></span><br><span class="line">// 请求相关参数</span><br><span class="line">@property (nonatomic, strong) HLNetworkRequestConfig *request;</span><br><span class="line"></span><br><span class="line">// 网络策略相关参数</span><br><span class="line">@property (nonatomic, strong) HLNetworkPolicyConfig *policy;</span><br><span class="line"></span><br><span class="line">// 安全策略相关参数</span><br><span class="line">@property (nonatomic, strong) HLSecurityPolicyConfig *defaultSecurityPolicy;</span><br><span class="line"></span><br><span class="line">// 是否启用reachability，baseURL为domain</span><br><span class="line">@property (nonatomic, assign) BOOL enableReachability;</span><br><span class="line"></span><br><span class="line">// 是否开启网络debug日志，该选项会在控制台输出所有网络回调日志，并且在Release模式下无效</span><br><span class="line">@property (nonatomic, assign) BOOL enableGlobalLog;</span><br></pre></td></tr></table></figure>
 <h4 id="HLNetworkRequestConfig"><a href="#HLNetworkRequestConfig" class="headerlink" title="HLNetworkRequestConfig"></a>HLNetworkRequestConfig</h4><p>全局Request的配置(可以在实例的Request中单独设置)</p>
