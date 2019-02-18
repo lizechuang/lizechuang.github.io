@@ -87,7 +87,7 @@
 <meta property="og:site_name" content="李先生的随笔">
 <meta property="og:description" content="KVO详解前言 KVO 即 Key-Value Observing，翻译成键值观察。它是一种观察者模式的衍生。其基本思想是，对目标对象的某属性添加观察，当该属性发生变化时，通过触发观察者对象实现的KVO接口方法，来自动的通知观察者。  观察者模式是什么 一个目标对象管理所有依赖于它的观察者对象，并在它自身的状态改变时主动通知观察者对象。这个主动通知通常是通过调用各观察者对象所提供的接口方法来实现的">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-02-18T12:55:09.474Z">
+<meta property="og:updated_time" content="2019-02-18T13:08:55.135Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="KVO详解">
 <meta name="twitter:description" content="KVO详解前言 KVO 即 Key-Value Observing，翻译成键值观察。它是一种观察者模式的衍生。其基本思想是，对目标对象的某属性添加观察，当该属性发生变化时，通过触发观察者对象实现的KVO接口方法，来自动的通知观察者。  观察者模式是什么 一个目标对象管理所有依赖于它的观察者对象，并在它自身的状态改变时主动通知观察者对象。这个主动通知通常是通过调用各观察者对象所提供的接口方法来实现的">
@@ -388,7 +388,7 @@
 <blockquote>
 <p>self.name = @”lee”;</p>
 </blockquote>
-<p>KVO 能保证所有 exchangeRate 的观察者在 setter 方法返回前被通知到。</p>
+<p>KVO 能保证所有 name 的观察者在 setter 方法返回前被通知到。</p>
 <p>其次，如果某个键被观察的时候附上了 NSKeyValueObservingOptionPrior 选项，直到 -observe… 方法被调用之前，name 的 getter 方法都会返回同样的值。</p>
 <h2 id="KVO实现"><a href="#KVO实现" class="headerlink" title="KVO实现"></a>KVO实现</h2><blockquote>
 <p>KVO 是通过 isa-swizzling 实现的。</p>

@@ -87,7 +87,7 @@
 <meta property="og:site_name" content="李先生的随笔">
 <meta property="og:description" content="KVC详解前言 KVC（Key-value coding）键值编码，就是指iOS的开发中，可以允许开发者通过Key名直接访问对象的属性，或者给对象的属性赋值。而不需要调用明确的存取方法。这样就可以在运行时动态地访问和修改对象的属性。而不是在编译时确定，这也是iOS开发中的黑魔法之一。很多高级的iOS开发技巧都是基于KVC实现的。 在实现了访问器方法的类中，使用点语法和KVC访问对象其实差别不大，二">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-02-18T12:55:11.039Z">
+<meta property="og:updated_time" content="2019-02-18T13:04:57.903Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="KVC详解">
 <meta name="twitter:description" content="KVC详解前言 KVC（Key-value coding）键值编码，就是指iOS的开发中，可以允许开发者通过Key名直接访问对象的属性，或者给对象的属性赋值。而不需要调用明确的存取方法。这样就可以在运行时动态地访问和修改对象的属性。而不是在编译时确定，这也是iOS开发中的黑魔法之一。很多高级的iOS开发技巧都是基于KVC实现的。 在实现了访问器方法的类中，使用点语法和KVC访问对象其实差别不大，二">
@@ -369,7 +369,7 @@
 <p>accessInstanceVariablesDirectly为NO的时候KVC只会查询setter和getter这一层，下面寻找key的相关变量执行就会停止，直接报错。</p>
 <h2 id="KVC取值"><a href="#KVC取值" class="headerlink" title="KVC取值"></a>KVC取值</h2><p>当调用valueForKey：@”name“的代码时，KVC对key的搜索方式不同于setValue：属性值 forKey：@”name“，其搜索方式如下：</p>
 <ul>
-<li>首先按get<key>,<key>,is<key>的顺序方法查找getter方法，找到的话会直接调用。如果是BOOL或者Int等值类型， 会将其包装成一个NSNumber对象。</key></key></key></li>
+<li>首先按 get<key> , <key> , is<key> 的顺序方法查找getter方法，找到的话会直接调用。如果是BOOL或者Int等值类型， 会将其包装成一个NSNumber对象。</key></key></key></li>
 <li>如果上面的getter没有找到，KVC则会查找countOf<key>,objectIn<key>AtIndex或<key>AtIndexes格式的方法。如果countOf<key>方法和另外两个方法中的一个被找到，那么就会返回一个可以响应NSArray所有方法的代理集合(它是NSKeyValueArray，是NSArray的子类)，调用这个代理集合的方法，或者说给这个代理集合发送属于NSArray的方法，就会以countOf<key>,objectIn<key>AtIndex或<key>AtIndexes这几个方法组合的形式调用。还有一个可选的get<key>:range:方法。所以你想重新定义KVC的一些功能，你可以添加这些方法，需要注意的是你的方法名要符合KVC的标准命名方法，包括方法签名。</key></key></key></key></key></key></key></key></li>
 <li>如果上面的方法没有找到，那么会同时查找countOf<key>，enumeratorOf<key>,memberOf<key>格式的方法。如果这三个方法都找到，那么就返回一个可以响应NSSet所的方法的代理集合，和上面一样，给这个代理集合发NSSet的消息，就会以countOf<key>，enumeratorOf<key>,memberOf<key>组合的形式调用。</key></key></key></key></key></key></li>
 <li>如果还没有找到，再检查类方法+ (BOOL)accessInstanceVariablesDirectly,如果返回YES(默认行为)，那么和先前的设值一样，会按_<key>,_is<key>,<key>,is<key>的顺序搜索成员变量名，这里不推荐这么做，因为这样直接访问实例变量破坏了封装性，使代码更脆弱。如果重写了类方法+ (BOOL)accessInstanceVariablesDirectly返回NO的话，那么会直接调用valueForUndefinedKey:方法，默认是抛出异常。</key></key></key></key></li>
