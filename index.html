@@ -263,7 +263,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://lizechuang.github.io/2019/01/23/RunLoop详解/">
+    <link itemprop="mainEntityOfPage" href="http://lizechuang.github.io/2019/02/15/iOS 锁🔒/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Lee">
@@ -282,7 +282,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/01/23/RunLoop详解/" itemprop="url">RunLoop详解</a></h1>
+                <a class="post-title-link" href="/2019/02/15/iOS 锁🔒/" itemprop="url">iOS 锁🔒</a></h1>
         
 
         <div class="post-meta">
@@ -294,8 +294,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-23T21:00:00+08:00">
-                2019-01-23
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-02-15T13:00:00+08:00">
+                2019-02-15
               </time>
             
 
@@ -355,11 +355,20 @@
 
       
         
-          <h1 id="RunLoop详解"><a href="#RunLoop详解" class="headerlink" title="RunLoop详解"></a>RunLoop详解</h1><p>前言</p>
-<p>RunLoop 是 iOS 和 OSX 开发中非常基础的一个概念。</p>
+          <h1 id="iOS-锁🔒"><a href="#iOS-锁🔒" class="headerlink" title="iOS 锁🔒"></a>iOS 锁🔒</h1><h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>最近在看面试题，有一条题是：</p>
+<blockquote>
+<p>让我们谈谈我们自己所认识的iOS中的锁。</p>
+</blockquote>
+<p>想了想好像开发过程只用过信号量加锁，NSLock和@synchronize这两个常见的锁。还有一条是</p>
+<blockquote>
+<p>自旋锁和互斥锁对比？</p>
+</blockquote>
+<p>嘤嘤嘤，好像只在操作系统看过，就是如果访问的临界资源被上锁了，当前线程（进程）的操作？？？</p>
+<p>感觉自己还是太菜了。总结一下iOS里面与锁相关的知识点。后面总结会包含这两道题的答案。</p>
+<p>关于为什么有锁这个概念的就不多加赘述，大家可以看一下操作系统的书，里面讲的比较详细。</p>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/01/23/RunLoop详解/#more" rel="contents">
+            <a class="btn" href="/2019/02/15/iOS 锁🔒/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
